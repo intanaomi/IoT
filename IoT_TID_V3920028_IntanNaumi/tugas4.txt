@@ -1,0 +1,33 @@
+#mengambil/memasukkan library
+from gpio import *
+from time import *
+
+#mendeklarasikan fungsi handleSensorData
+def handleSensorData():
+	#mendeklarasikan input dari sensor digitalRead
+	value = digitalRead(0)
+	#jika value samadengan 0
+	if value == 0:
+		#maka tidak ada gerakan
+		customWrite(2, '0')
+		digitalWrite(1, LOW)
+		print("Tidak ada gerakan")
+	#jika input tidak sesuai
+	else:
+		#ada gerakan 
+		customWrite(2, '1')
+		digitalWrite(1, HIGH)
+		print("Ada gerakan")
+		
+#mendeklarasikan fungsi main	
+def main():
+	#melakukan action 
+	add_event_detect(0, handleSensorData)
+	
+	#jika action benar maka delay 1000
+	while True:
+		delay(1000)
+
+#jika fungsi main dijalankan maka program akan berjalan	
+if __name__ == "__main__":
+	main() 
